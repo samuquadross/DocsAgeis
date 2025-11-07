@@ -360,6 +360,26 @@
         gap: 10px;
       }
     }
+
+    /* ✅ Correção da imagem "Sobre Nós" no telemóvel */
+    @media (max-width: 768px) {
+      .about-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about img {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .about p {
+        padding: 0 5%;
+      }
+    }
   </style>
 </head>
 <body>
