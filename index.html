@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- TÍTULO DA ABA: Documentos Ágeis -->
   <title>Documentos Ágeis</title>
   <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QdRxRM27/Favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,16 +14,25 @@
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
-
     body {
       background-color: #0a0a2a;
       color: #ffffff;
       line-height: 1.6;
+      overflow-x: hidden;
     }
-
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    /* Animação de entrada geral */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease forwards;
     }
 
     /* --------- Cabeçalho --------- */
@@ -30,26 +41,147 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 10%;
-      background: rgba(10,10,42,0.9);
+      background: rgba(10,10,42,0.95);
+      backdrop-filter: blur(10px);
       position: fixed;
       top: 0;
       width: 100%;
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+      transition: all 0.4s ease;
     }
-
+    header.scrolled {
+      padding: 15px 10%;
+      background: rgba(10,10,42,0.98);
+    }
     header img {
       height: 45px;
+      transition: transform 0.3s ease;
+    }
+    header img:hover {
+      transform: scale(1.1);
     }
 
+    nav {
+      display: flex;
+      gap: 25px;
+    }
     nav a {
-      margin-left: 20px;
       font-weight: 500;
-      transition: color 0.3s;
+      position: relative;
+      transition: color 0.3s ease;
     }
-
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: #00b0ff;
+      transition: width 0.3s ease;
+    }
     nav a:hover {
       color: #00b0ff;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      z-index: 1100;
+    }
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Drawer Menu */
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100vh;
+      background: linear-gradient(135deg, #0a0a2a, #10104a);
+      padding: 100px 30px 30px;
+      transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+      overflow-y: auto;
+    }
+    .drawer.active {
+      right: 0;
+    }
+    .drawer a {
+      display: block;
+      padding: 18px 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #e0e0e0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    .drawer.active a {
+      animation: slideInRight 0.5s ease forwards;
+    }
+    .drawer a:hover {
+      color: #00b0ff;
+      padding-left: 10px;
+    }
+    @keyframes slideInRight {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ÍCONE X PARA FECHAR O DRAWER */
+    .drawer-close {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1101;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+    .drawer.active .drawer-close {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .drawer-close:hover {
+      background: #00b0ff;
+      transform: scale(1.1);
     }
 
     /* --------- Hero --------- */
@@ -58,373 +190,471 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
-      text-align: left;
+      align-items: center;
+      text-align: center;
       padding: 0 7%;
       background: url('https://i.postimg.cc/HkfsfLq8/Fundo-First.png') center center/cover no-repeat;
+      background-attachment: fixed;
       position: relative;
+      overflow: hidden;
     }
-
-    .hero::after {
+    .hero::before {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 10, 42, 0.8);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(10,10,42,0.9), rgba(16,16,74,0.7));
       z-index: 1;
     }
-
-    .hero h1, .hero p, .hero button {
+    .hero-content {
       position: relative;
       z-index: 2;
+      max-width: 900px;
+      width: 100%;
     }
 
+    /* TÍTULO h1: MENOR, MAS COM TODOS OS EFEITOS */
     .hero h1 {
-      font-size: 2.8rem;
-      color: #ffffff;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: #cfcfcf;
-      margin-bottom: 30px;
-      max-width: 600px;
+      font-size: 2.6rem;
+      background: linear-gradient(90deg, #ffffff, #00b0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 35px;
+      animation-delay: 0.3s;
+      line-height: 1.2;
     }
 
     .hero button {
       background: linear-gradient(90deg, #2970ff, #00b0ff);
       color: #fff;
       border: none;
-      padding: 15px 35px;
-      border-radius: 30px;
+      padding: 16px 40px;
+      border-radius: 50px;
       cursor: pointer;
-      font-size: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,176,255,0.4);
+      animation-delay: 0.5s;
     }
-
     .hero button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,176,255,0.5);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,176,255,0.6);
     }
 
-    /* --------- Serviços --------- */
+    /* WhatsApp Floating Button - 48px */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: #25D366;
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(37,211,102,0.4);
+      z-index: 999;
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(37,211,102,0.6);
+    }
+    .whatsapp-float img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(0) invert(1);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* --------- Responsivo --------- */
+
+    /* DESKTOP: Título à esquerda */
+    @media (min-width: 769px) {
+      .hero {
+        align-items: flex-start;
+        text-align: left;
+      }
+      .hero-content {
+        max-width: 700px;
+        margin-left: 10%;
+      }
+      .hero h1 {
+        font-size: 2.8rem;
+        max-width: 700px;
+        margin-left: 0;
+      }
+    }
+
+    /* MOBILE: Pessoas no topo, texto centralizado */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 5%;
+      }
+      nav { display: none; }
+      .hamburger { display: flex; }
+
+      .hero {
+        background-attachment: scroll;
+        background-position: center 30%;
+        justify-content: flex-start;
+        padding-top: 120px;
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .hero h1 {
+        font-size: 2.1rem;
+        text-align: center;
+        margin: 0 auto 30px;
+        max-width: 90%;
+      }
+
+      .hero button {
+        padding: 14px 30px;
+        font-size: 1rem;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .whatsapp-float {
+        width: 44px;
+        height: 44px;
+        bottom: 12px;
+        right: 12px;
+      }
+      .whatsapp-float img {
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+      .hero {
+        padding-top: 100px;
+      }
+    }
+
+    /* --------- Seções (100% ORIGINAIS) --------- */
+    .services, .about, .faq, .contact {
+      padding: 100px 10%;
+    }
+    @media (max-width: 768px) {
+      .services, .about, .faq, .contact {
+        padding: 80px 5%;
+      }
+    }
+
     .services {
-      padding: 80px 10%;
       text-align: center;
       background-color: #10104a;
     }
-
     .services h2 {
-      font-size: 2rem;
-      margin-bottom: 50px;
+      font-size: 2.2rem;
+      margin-bottom: 60px;
       background: linear-gradient(90deg, #2970ff, #00b0ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation-delay: 0.2s;
     }
-
     .service-boxes {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 30px;
+      gap: 35px;
     }
-
     .service {
-      background: #0f0f3a;
-      border-radius: 15px;
-      padding: 30px;
-      width: 300px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      background: linear-gradient(145deg, #0f0f3a, #0a0a2a);
+      border-radius: 18px;
+      padding: 35px;
+      width: 310px;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-
+    .service.visible {
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeInUp 0.6s ease forwards;
+    }
     .service:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 4px 15px rgba(0,176,255,0.3);
+      transform: translateY(-12px);
+      box-shadow: 0 15px 30px rgba(0,176,255,0.3);
+      background: linear-gradient(145deg, #1a1a5e, #0f0f3a);
     }
-
     .service h3 {
       margin-bottom: 15px;
       color: #00b0ff;
+      font-size: 1.3rem;
     }
 
-    /* --------- Sobre nós --------- */
     .about {
-      padding: 80px 10%;
       text-align: center;
       background: linear-gradient(180deg, #0a0a2a, #111144);
     }
-
     .about h2 {
-      font-size: 2rem;
-      margin-bottom: 30px;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
       color: #00b0ff;
+      animation-delay: 0.2s;
     }
-
     .about-content {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 40px;
+      gap: 50px;
     }
-
     .about img {
       width: 400px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,176,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,176,255,0.3);
+      transition: all 0.5s ease;
+      opacity: 0;
+      transform: scale(0.9);
     }
-
+    .about img.visible {
+      opacity: 1;
+      transform: scale(1);
+      animation: zoomIn 0.8s ease forwards;
+    }
     .about p {
       max-width: 600px;
       color: #d0d0d0;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateX(-30px);
     }
+    .about p.visible {
+      opacity: 1;
+      transform: translateX(0);
+      animation: fadeInLeft 0.8s ease forwards;
+    }
+    @keyframes zoomIn { to { transform: scale(1); opacity: 1; } }
+    @keyframes fadeInLeft { to { transform: translateX(0); opacity: 1; } }
 
-    /* --------- FAQ --------- */
     .faq {
       background-color: #10104a;
-      padding: 80px 10%;
       text-align: center;
     }
-
     .faq h2 {
-      font-size: 2rem;
-      margin-bottom: 40px;
+      font-size: 2.2rem;
+      margin-bottom: 50px;
       background: linear-gradient(90deg, #2970ff, #00b0ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     .faq-container {
       max-width: 800px;
       margin: 0 auto;
       text-align: left;
     }
-
     .faq-item {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 15px;
+      opacity: 0;
+      transform: translateY(20px);
     }
-
+    .faq-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+      animation: fadeInUp 0.6s ease forwards;
+    }
     .faq-question {
       width: 100%;
       background: none;
       color: #fff;
       text-align: left;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 500;
       border: none;
-      padding: 15px 0;
+      padding: 18px 0;
       cursor: pointer;
       position: relative;
       transition: color 0.3s;
     }
-
     .faq-question::after {
       content: '+';
       position: absolute;
       right: 0;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: #00b0ff;
-      transition: transform 0.3s;
+      transition: transform 0.4s ease;
     }
-
     .faq-item.active .faq-question::after {
       transform: rotate(45deg);
     }
-
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s ease;
+      transition: max-height 0.5s ease;
       color: #ccc;
-      line-height: 1.6;
+      line-height: 1.7;
+      padding: 0 5px;
     }
-
     .faq-item.active .faq-answer {
-      max-height: 500px;
+      max-height: 600px;
+      padding: 15px 5px;
     }
 
-    .faq-answer a {
-      color: #00b0ff;
-    }
-
-    /* --------- Contato --------- */
     .contact {
       background: url('https://i.postimg.cc/vmfHMsMd/Fundo.png') center center/cover no-repeat;
-      padding: 100px 10%;
+      background-attachment: fixed;
       text-align: center;
       position: relative;
     }
-
     .contact::after {
       content: "";
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10,10,42,0.8);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10,10,42,0.85);
       z-index: 1;
     }
-
     .contact h2, .contact a {
       position: relative;
       z-index: 2;
     }
-
     .contact h2 {
-      font-size: 2rem;
-      margin-bottom: 30px;
+      font-size: 2.2rem;
+      margin-bottom: 35px;
       color: #00b0ff;
     }
-
     .whatsapp-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
       background: linear-gradient(90deg, #2970ff, #00b0ff);
       color: white;
-      padding: 15px 30px;
-      border-radius: 30px;
+      padding: 18px 35px;
+      border-radius: 50px;
       font-weight: 600;
-      transition: transform 0.2s, box-shadow 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,176,255,0.4);
     }
-
     .whatsapp-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 10px rgba(0,176,255,0.5);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,176,255,0.6);
     }
-
-    .whatsapp-icon {
-      width: 26px;
-      height: 26px;
+    .whatsapp-button img {
+      width: 28px;
+      height: 28px;
       filter: brightness(0) invert(1);
     }
 
-    /* --------- Rodapé --------- */
     footer {
       background-color: #080826;
       text-align: center;
-      padding: 30px 10px;
+      padding: 40px 10px;
       color: #aaaaaa;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
-
     .social-links {
-      margin-top: 15px;
+      margin-top: 20px;
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: 12px;
+      gap: 15px;
     }
-
-    .social-links img {
-      width: 22px;
-      height: 22px;
-      filter: brightness(0) invert(1);
-      transition: transform 0.3s;
-    }
-
     .social-links a {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       color: #00b0ff;
       font-weight: 500;
-      transition: color 0.3s, transform 0.3s;
+      transition: all 0.3s ease;
     }
-
-    .social-links a:hover img {
-      transform: scale(1.2);
-    }
-
     .social-links a:hover {
-      color: #2970ff;
+      color: #ffffff;
+      transform: translateY(-3px);
     }
-
-    @media (max-width: 768px) {
-      .about-content {
-        flex-direction: column;
-      }
-      .service-boxes {
-        flex-direction: column;
-        align-items: center;
-      }
-      header {
-        flex-direction: column;
-        gap: 10px;
-      }
+    .social-links img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease;
     }
-
-    /* ✅ Correção da imagem "Sobre Nós" no telemóvel */
-    @media (max-width: 768px) {
-      .about-content {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .about img {
-        width: 90%;
-        max-width: 400px;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-      }
-
-      .about p {
-        padding: 0 5%;
-      }
+    .social-links a:hover img {
+      transform: rotate(360deg) scale(1.3);
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="https://i.postimg.cc/mgcgX95D/Logo-Header.png" alt="Logo Documentos Ágeis">
+  <!-- Header -->
+  <header id="header">
+    <img src="https://i.postimg.cc/mgcgX95D/Logo-Header.png" alt="Logo">
     <nav>
       <a href="#servicos">Serviços</a>
       <a href="#sobre">Sobre Nós</a>
       <a href="#duvidas">Dúvidas</a>
       <a href="#contato">Contato</a>
     </nav>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </header>
 
+  <!-- Drawer Menu com X -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-close" id="drawer-close">X</div>
+    <a href="#servicos">Serviços</a>
+    <a href="#sobre">Sobre Nós</a>
+    <a href="#duvidas">Dúvidas</a>
+    <a href="#contato">Contato</a>
+  </div>
+
+  <!-- Hero -->
   <section class="hero" id="inicio">
-    <h1>Documentos Ágeis</h1>
-    <p>Facilitamos a obtenção de documentos e serviços de cartórios e conservatórios do Brasil e Portugal com rapidez, segurança e total suporte humano. 
-       Seja para solicitar certidões, obter NIF, NISS ou abrir conta bancária, a Documentos Ágeis cuida de tudo por você — 
-       com acompanhamento personalizado e confiança em cada etapa.</p>
-    <button onclick="window.open('https://wa.me/351932573214?text=Ol%C3%A1','_blank')">Solicitar agora</button>
+    <div class="hero-content">
+      <h1 class="animate">Serviços rápidos e seguros de Cartório e Conservatório no Brasil e Portugal</h1>
+      <button class="animate" onclick="window.open('https://wa.me/351932573214?text=Ol%C3%A1','_blank')">Solicitar agora</button>
+    </div>
   </section>
 
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/351932573214?text=Ol%C3%A1" target="_blank" class="whatsapp-float">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+
+  <!-- Serviços -->
   <section class="services" id="servicos">
-    <h2>Nossos Serviços</h2>
+    <h2 class="animate">Nossos Serviços</h2>
     <div class="service-boxes">
       <div class="service"><h3>Certidões</h3><p>Solicitação rápida e segura de certidões de nascimento, casamento e óbito em Portugal.</p></div>
       <div class="service"><h3>Procurações e substabelecimentos</h3><p>Realizamos procurações e substabelecimentos com assinatura eletrónica e autenticidade garantida.</p></div>
       <div class="service"><h3>Apostila de Haia</h3><p>Validação internacional de documentos para uso em outros países.</p></div>
-      <div class="service"><h3>NIF e NISS</h3><p>Obtenha seu Número de Identificação Fiscal (NIF) e de Segurança Social (NISS) com total praticidade e suporte especializado.</p></div>
-      <div class="service"><h3>Abertura de Conta em Portugal</h3><p>Facilitamos a abertura de contas bancárias em instituições portuguesas de forma 100% online e segura.</p></div>
-      <div class="service"><h3>Traduções e Reconhecimento</h3><p>Serviço de tradução certificada e reconhecimento de documentos para processos legais e administrativos em Portugal.</p></div>
+      <div class="service"><h3>NIF e NISS</h3><p>Obtenha seu Número de Identificação Fiscal (NIF) e de Segurança Social (NISS) com total praticidade.</p></div>
+      <div class="service"><h3>Abertura de Conta em Portugal</h3><p>Facilitamos a abertura de contas bancárias em instituições portuguesas de forma 100% online.</p></div>
+      <div class="service"><h3>Traduções e Reconhecimento</h3><p>Serviço de tradução certificada e reconhecimento de documentos para processos legais.</p></div>
     </div>
   </section>
 
+  <!-- Sobre Nós -->
   <section class="about" id="sobre">
-    <h2>Sobre Nós</h2>
+    <h2 class="animate">Sobre Nós</h2>
     <div class="about-content">
-      <img src="https://i.postimg.cc/MTwZpFKS/Sobre-Nos.png" alt="Equipe Documentos Ágeis">
-      <p>Olá, seja bem-vindo! Somos a <strong>Documentos Ágeis</strong> e estamos aqui para facilitar a obtenção de documentos e outros atos em Portugal sem que você precise sair de casa.
-      <br><br>Trabalhamos com segurança jurídica garantida por advogados licenciados em Portugal. Nossa equipe cuida de todo o processo para solicitação de Certidões no Brasil e em Portugal, atribuição de Número de Identificação Fiscal (NIF), Abertura de conta corrente e demais procedimentos burocráticos junto a instituições públicas e privadas de forma rápida online e confiável.</p>
+      <img src="https://i.postimg.cc/MTwZpFKS/Sobre-Nos.png" alt="Equipe">
+      <p>Olá, seja bem-vindo! Somos a <strong>Documentos Ágeis</strong> e estamos aqui para facilitar a obtenção de documentos e outros atos em Portugal sem que você precise sair de casa.</p>
     </div>
   </section>
 
+  <!-- FAQ -->
   <section class="faq" id="duvidas">
-    <h2>Dúvidas Frequentes</h2>
+    <h2 class="animate">Dúvidas Frequentes</h2>
     <div class="faq-container">
       <div class="faq-item"><button class="faq-question">Como vou receber minha Procuração Express se moro fora do Brasil?</button><div class="faq-answer"><p>O documento eletrônico é enviado em arquivo PDF, contendo QR Code e código de validação. A autenticidade pode ser verificada em <a href="https://www.docautentico.com.br/valida" target="_blank">www.docautentico.com.br/valida</a>.</p></div></div>
       <div class="faq-item"><button class="faq-question">É possível vender um imóvel no Brasil através de uma procuração?</button><div class="faq-answer"><p>Sim, desde que a procuração pública contenha poderes específicos para venda e identificação do imóvel. A Documentos Ágeis orienta sobre todos os detalhes necessários.</p></div></div>
@@ -433,30 +663,77 @@
     </div>
   </section>
 
+  <!-- Contato -->
   <section class="contact" id="contato">
-    <h2>Fale Conosco</h2>
+    <h2 class="animate">Fale Conosco</h2>
     <a href="https://wa.me/351932573214?text=Ol%C3%A1" target="_blank" class="whatsapp-button">
       <img src="https://i.postimg.cc/bNVv9gL7/Fale-Conosco.png" alt="WhatsApp" class="whatsapp-icon">
       Entrar em contato via WhatsApp
     </a>
   </section>
 
+  <!-- Rodapé -->
   <footer>
-    <p>© 2025 Documentos Ágeis - Todos os direitos reservados.</p>
+    <p>© 2025 Serviços rápidos e seguros de Cartório e Conservatório no Brasil e Portugal - Todos os direitos reservados.</p>
     <div class="social-links">
       <a href="https://www.instagram.com/docs.ageis" target="_blank" aria-label="Instagram">
-        <img src="https://i.postimg.cc/K8K8qTHh/IG-Rodape.png" alt="Instagram">
-        @docs.ageis
+        <img src="https://i.postimg.cc/K8K8qTHh/IG-Rodape.png" alt="Instagram"> @docs.ageis
       </a>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script>
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      item.querySelector('.faq-question').addEventListener('click', () => {
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    const drawerClose = document.getElementById('drawer-close');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      drawer.classList.toggle('active');
+    });
+
+    drawerClose.addEventListener('click', () => {
+      drawer.classList.remove('active');
+      hamburger.classList.remove('active');
+    });
+
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        drawer.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('service')) {
+            const services = document.querySelectorAll('.service');
+            services.forEach((service, index) => {
+              setTimeout(() => service.classList.add('visible'), index * 150);
+            });
+          }
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.animate, .service, .about img, .about p, .faq-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
         item.classList.toggle('active');
-        faqItems.forEach(i => { if (i !== item) i.classList.remove('active'); });
+        document.querySelectorAll('.faq-item').forEach(i => {
+          if (i !== item) i.classList.remove('active');
+        });
       });
     });
   </script>
