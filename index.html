@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- TÍTULO DA ABA: Documentos Ágeis -->
   <title>Documentos Ágeis</title>
   <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/QdRxRM27/Favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,8 +23,6 @@
       color: inherit;
       text-decoration: none;
     }
-
-    /* Animação de entrada geral */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
@@ -34,7 +31,6 @@
       opacity: 0;
       animation: fadeInUp 0.8s ease forwards;
     }
-
     /* --------- Cabeçalho --------- */
     header {
       display: flex;
@@ -61,7 +57,6 @@
     header img:hover {
       transform: scale(1.1);
     }
-
     nav {
       display: flex;
       gap: 25px;
@@ -87,8 +82,6 @@
     nav a:hover::after {
       width: 100%;
     }
-
-    /* Hamburger Menu */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -113,8 +106,6 @@
     .hamburger.active span:nth-child(3) {
       transform: rotate(-45deg) translate(7px, -6px);
     }
-
-    /* Drawer Menu */
     .drawer {
       position: fixed;
       top: 0;
@@ -152,8 +143,6 @@
     @keyframes slideInRight {
       to { opacity: 1; transform: translateX(0); }
     }
-
-    /* ÍCONE X PARA FECHAR O DRAWER */
     .drawer-close {
       position: absolute;
       top: 25px;
@@ -183,7 +172,6 @@
       background: #00b0ff;
       transform: scale(1.1);
     }
-
     /* --------- Hero --------- */
     .hero {
       height: 100vh;
@@ -197,6 +185,7 @@
       background-attachment: fixed;
       position: relative;
       overflow: hidden;
+      min-height: 100vh;
     }
     .hero::before {
       content: "";
@@ -212,8 +201,6 @@
       max-width: 900px;
       width: 100%;
     }
-
-    /* TÍTULO h1: MENOR, MAS COM TODOS OS EFEITOS */
     .hero h1 {
       font-size: 2.6rem;
       background: linear-gradient(90deg, #ffffff, #00b0ff);
@@ -223,7 +210,6 @@
       animation-delay: 0.3s;
       line-height: 1.2;
     }
-
     .hero button {
       background: linear-gradient(90deg, #2970ff, #00b0ff);
       color: #fff;
@@ -241,8 +227,6 @@
       transform: translateY(-5px) scale(1.05);
       box-shadow: 0 10px 25px rgba(0,176,255,0.6);
     }
-
-    /* WhatsApp Floating Button - 48px */
     .whatsapp-float {
       position: fixed;
       bottom: 15px;
@@ -274,9 +258,7 @@
       50% { transform: translateY(-6px); }
     }
 
-    /* --------- Responsivo --------- */
-
-    /* DESKTOP: Título à esquerda */
+    /* --------- RESPONSIVO --------- */
     @media (min-width: 769px) {
       .hero {
         align-items: flex-start;
@@ -293,37 +275,34 @@
       }
     }
 
-    /* MOBILE: Pessoas no topo, texto centralizado */
     @media (max-width: 768px) {
       header {
         padding: 15px 5%;
       }
       nav { display: none; }
       .hamburger { display: flex; }
-
       .hero {
         background-attachment: scroll;
-        background-position: center 30%;
+        background-position: center 20% !important;
+        background-size: cover;
         justify-content: flex-start;
         padding-top: 120px;
         padding-left: 5%;
         padding-right: 5%;
+        min-height: 100vh;
       }
-
       .hero h1 {
         font-size: 2.1rem;
         text-align: center;
         margin: 0 auto 30px;
         max-width: 90%;
       }
-
       .hero button {
         padding: 14px 30px;
         font-size: 1rem;
         margin: 0 auto;
         display: block;
       }
-
       .whatsapp-float {
         width: 44px;
         height: 44px;
@@ -337,15 +316,16 @@
     }
 
     @media (max-width: 480px) {
+      .hero {
+        background-position: center 15% !important;
+        padding-top: 100px;
+      }
       .hero h1 {
         font-size: 1.9rem;
       }
-      .hero {
-        padding-top: 100px;
-      }
     }
 
-    /* --------- Seções (100% ORIGINAIS) --------- */
+    /* --------- Seções --------- */
     .services, .about, .faq, .contact {
       padding: 100px 10%;
     }
@@ -354,7 +334,6 @@
         padding: 80px 5%;
       }
     }
-
     .services {
       text-align: center;
       background-color: #10104a;
@@ -398,7 +377,6 @@
       color: #00b0ff;
       font-size: 1.3rem;
     }
-
     .about {
       text-align: center;
       background: linear-gradient(180deg, #0a0a2a, #111144);
@@ -416,18 +394,19 @@
       justify-content: center;
       gap: 50px;
     }
+    /* IMAGEM DO SOBRE NÓS COM ANIMAÇÃO */
     .about img {
       width: 400px;
       border-radius: 20px;
       box-shadow: 0 0 25px rgba(0,176,255,0.3);
       transition: all 0.5s ease;
       opacity: 0;
-      transform: scale(0.9);
+      transform: translateY(30px) scale(0.95);
     }
     .about img.visible {
       opacity: 1;
-      transform: scale(1);
-      animation: zoomIn 0.8s ease forwards;
+      transform: translateY(0) scale(1);
+      animation: fadeInUp 0.8s ease forwards;
     }
     .about p {
       max-width: 600px;
@@ -441,9 +420,9 @@
       transform: translateX(0);
       animation: fadeInLeft 0.8s ease forwards;
     }
-    @keyframes zoomIn { to { transform: scale(1); opacity: 1; } }
-    @keyframes fadeInLeft { to { transform: translateX(0); opacity: 1; } }
-
+    @keyframes fadeInLeft {
+      to { transform: translateX(0); opacity: 1; }
+    }
     .faq {
       background-color: #10104a;
       text-align: center;
@@ -507,7 +486,6 @@
       max-height: 600px;
       padding: 15px 5px;
     }
-
     .contact {
       background: url('https://i.postimg.cc/vmfHMsMd/Fundo.png') center center/cover no-repeat;
       background-attachment: fixed;
@@ -553,7 +531,6 @@
       height: 28px;
       filter: brightness(0) invert(1);
     }
-
     footer {
       background-color: #080826;
       text-align: center;
@@ -591,7 +568,6 @@
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header id="header">
     <img src="https://i.postimg.cc/mgcgX95D/Logo-Header.png" alt="Logo">
@@ -607,7 +583,6 @@
       <span></span>
     </div>
   </header>
-
   <!-- Drawer Menu com X -->
   <div class="drawer" id="drawer">
     <div class="drawer-close" id="drawer-close">X</div>
@@ -616,42 +591,37 @@
     <a href="#duvidas">Dúvidas</a>
     <a href="#contato">Contato</a>
   </div>
-
   <!-- Hero -->
   <section class="hero" id="inicio">
     <div class="hero-content">
-      <h1 class="animate">Serviços rápidos e seguros de Cartório e Conservatório no Brasil e Portugal</h1>
+      <h1 class="animate">Serviços rápidos e seguros de Cartório e Conservatória do Brasil e Portugal</h1>
       <button class="animate" onclick="window.open('https://wa.me/351932573214?text=Ol%C3%A1','_blank')">Solicitar agora</button>
     </div>
   </section>
-
   <!-- WhatsApp Float -->
   <a href="https://wa.me/351932573214?text=Ol%C3%A1" target="_blank" class="whatsapp-float">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
-
   <!-- Serviços -->
   <section class="services" id="servicos">
     <h2 class="animate">Nossos Serviços</h2>
     <div class="service-boxes">
-      <div class="service"><h3>Certidões</h3><p>Solicitação rápida e segura de certidões de nascimento, casamento e óbito em Portugal.</p></div>
-      <div class="service"><h3>Procurações e substabelecimentos</h3><p>Realizamos procurações e substabelecimentos com assinatura eletrónica e autenticidade garantida.</p></div>
-      <div class="service"><h3>Apostila de Haia</h3><p>Validação internacional de documentos para uso em outros países.</p></div>
-      <div class="service"><h3>NIF e NISS</h3><p>Obtenha seu Número de Identificação Fiscal (NIF) e de Segurança Social (NISS) com total praticidade.</p></div>
-      <div class="service"><h3>Abertura de Conta em Portugal</h3><p>Facilitamos a abertura de contas bancárias em instituições portuguesas de forma 100% online.</p></div>
-      <div class="service"><h3>Traduções e Reconhecimento</h3><p>Serviço de tradução certificada e reconhecimento de documentos para processos legais.</p></div>
+      <div class="service"><h3>Certidões</h3><p>Solicitação rápida, segura e totalmente online de certidões de nascimento, casamento e óbito em Portugal, também auxiliamos na obtenção de certidões atualizadas e na legalização para uso no exterior.</p></div>
+      <div class="service"><h3>Procurações e substabelecimentos</h3><p>Realizamos procurações e substabelecimentos com assinatura eletrônica e autenticação garantida, atuamos com diferentes tipos de procurações, inclusive para representação legal, fiscal e imobiliária.</p></div>
+      <div class="service"><h3>Transferências de Veículos Online</h3><p>Facilitamos o processo de transferência de propriedade de veículos de forma digital e segura, cuidamos de toda a tramitação junto às entidades competentes, poupando tempo e burocracia.</p></div>
+      <div class="service"><h3>NIF e NISS</h3><p>Obtenha o seu Número de Identificação Fiscal (NIF) e de Segurança Social (NISS) com total praticidade, oferecemos acompanhamento personalizado e envio digital dos documentos em poucos dias.</p></div>
+      <div class="service"><h3>Autenticação de Documentos</h3><p>Serviço de autenticação e certificação de documentos para garantir validade jurídica em Portugal e no exterior, ideal para contratos, declarações, diplomas e outros documentos oficiais.</p></div>
+      <div class="service"><h3>Autorização de Viagem</h3><p>Emitimos autorizações de viagem para menores e outros documentos relacionados, com reconhecimento de assinatura incluído, tudo de forma simples, segura e conforme as exigências legais portuguesas.</p></div>
     </div>
   </section>
-
   <!-- Sobre Nós -->
   <section class="about" id="sobre">
     <h2 class="animate">Sobre Nós</h2>
     <div class="about-content">
-      <img src="https://i.postimg.cc/MTwZpFKS/Sobre-Nos.png" alt="Equipe">
-      <p>Olá, seja bem-vindo! Somos a <strong>Documentos Ágeis</strong> e estamos aqui para facilitar a obtenção de documentos e outros atos em Portugal sem que você precise sair de casa.</p>
+      <img src="https://i.postimg.cc/MTwZpFKS/Sobre-Nos.png" alt="Equipe" class="animate">
+      <p class="animate">Olá, seja bem-vindo! Somos a <strong>Documentos Ágeis</strong> e estamos aqui para facilitar a obtenção de documentos e outros atos em Portugal sem que você precise sair de casa.</p>
     </div>
   </section>
-
   <!-- FAQ -->
   <section class="faq" id="duvidas">
     <h2 class="animate">Dúvidas Frequentes</h2>
@@ -662,7 +632,6 @@
       <div class="faq-item"><button class="faq-question">Preciso enviar a procuração por Correio para o Brasil?</button><div class="faq-answer"><p>Não. A procuração eletrônica tem validade legal e é enviada por e-mail em formato PDF com código de validação e QR Code.</p></div></div>
     </div>
   </section>
-
   <!-- Contato -->
   <section class="contact" id="contato">
     <h2 class="animate">Fale Conosco</h2>
@@ -671,44 +640,37 @@
       Entrar em contato via WhatsApp
     </a>
   </section>
-
   <!-- Rodapé -->
   <footer>
-    <p>© 2025 Serviços rápidos e seguros de Cartório e Conservatório no Brasil e Portugal - Todos os direitos reservados.</p>
+    <p>© 2025 Documentos Ágeis - Todos os direitos reservados.</p>
     <div class="social-links">
       <a href="https://www.instagram.com/docs.ageis" target="_blank" aria-label="Instagram">
-        <img src="https://i.postimg.cc/K8K8qTHh/IG-Rodape.png" alt="Instagram"> @docs.ageis
+        <img src="https://i.postimg.cc/MGMk0hXB/pngegg.png" alt="Instagram"> @docs.ageis
       </a>
     </div>
   </footer>
-
   <!-- Scripts -->
   <script>
     const hamburger = document.getElementById('hamburger');
     const drawer = document.getElementById('drawer');
     const drawerClose = document.getElementById('drawer-close');
-
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       drawer.classList.toggle('active');
     });
-
     drawerClose.addEventListener('click', () => {
       drawer.classList.remove('active');
       hamburger.classList.remove('active');
     });
-
     drawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         drawer.classList.remove('active');
         hamburger.classList.remove('active');
       });
     });
-
     window.addEventListener('scroll', () => {
       document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
     });
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -722,11 +684,9 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
     document.querySelectorAll('.animate, .service, .about img, .about p, .faq-item').forEach(el => {
       observer.observe(el);
     });
-
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.parentElement;
