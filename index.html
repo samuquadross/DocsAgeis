@@ -181,39 +181,41 @@
     /* --------- Hero --------- */
     .hero {
       height: 100vh;
+      min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; /* ← À ESQUERDA NO PC */
       align-items: center;
-      text-align: center;
       padding: 0 7%;
-      background: url('https://i.postimg.cc/HkfsfLq8/Fundo-First.png') center center/cover no-repeat;
+      background: url('https://i.postimg.cc/HkfsfLq8/Fundo-First.png') center 30%/cover no-repeat;
       background-attachment: fixed;
       position: relative;
       overflow: hidden;
-      min-height: 100vh;
     }
     .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(10,10,42,0.9), rgba(16,16,74,0.7));
-      z-index: 1;
+      display: none; /* Fundo claro */
     }
     .hero-content {
       position: relative;
       z-index: 2;
       max-width: 900px;
       width: 100%;
+      text-align: left; /* ← texto à esquerda */
+      padding-left: 5%;
     }
     .hero h1 {
-      font-size: 2.6rem;
+      font-size: 2.5rem;
       background: linear-gradient(90deg, #ffffff, #00b0ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 35px;
+      margin-bottom: 15px;
       line-height: 1.2;
+    }
+    .hero .slogan {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #e0e0e0;
+      margin: 15px 0 30px;
+      opacity: 0.9;
     }
     .hero button {
       background: linear-gradient(90deg, #2970ff, #00b0ff);
@@ -232,7 +234,7 @@
       box-shadow: 0 10px 25px rgba(0,176,255,0.6);
     }
 
-    /* MOBILE: TUA IMAGEM + HAMBURGUER */
+    /* MOBILE */
     @media (max-width: 768px) {
       header {
         padding: 15px 5%;
@@ -246,18 +248,27 @@
       .hero {
         background: url('https://i.postimg.cc/050wkXxG/Design-sem-nome.png') center 60%/cover no-repeat;
         background-attachment: scroll;
-        justify-content: flex-start;
-        padding-top: 120px;
-        padding-left: 5%;
-        padding-right: 5%;
+        justify-content: center;
+        align-items: center;
+        padding: 120px 5% 5%;
+        text-align: center;
       }
       .hero::before {
-        background: linear-gradient(135deg, rgba(10,10,42,0.85), rgba(16,16,74,0.75));
+        display: none;
+      }
+      .hero-content {
+        text-align: center;
+        padding: 0;
+        max-width: 90%;
       }
       .hero h1 {
         font-size: 2.1rem;
-        text-align: center;
-        margin: 0 auto 30px;
+        margin: 0 auto 15px;
+        max-width: 100%;
+      }
+      .hero .slogan {
+        font-size: 1.1rem;
+        margin: 10px auto 25px;
         max-width: 90%;
       }
       .hero button {
@@ -269,11 +280,14 @@
     }
     @media (max-width: 480px) {
       .hero {
-        background-position: center 20% !important;
+        background-position: center 60% !important;
         padding-top: 100px;
       }
       .hero h1 {
         font-size: 1.9rem;
+      }
+      .hero .slogan {
+        font-size: 1rem;
       }
     }
 
@@ -522,10 +536,9 @@
       white-space: nowrap;
       z-index: 3;
     }
-    /* BADGE WHATSAPP PERTO DO ZERO BUROCRACIA */
     .whatsapp-badge {
-      top: 54%; /* Perto da outra badge */
-      right: 47%;
+      top: 54%;
+      right: 67%;
       animation: float 3s ease-in-out infinite;
     }
     .whatsapp-badge img {
@@ -535,7 +548,7 @@
     }
     .zero-badge {
       bottom: 20%;
-      right: 2%;
+      right: 10%;
       background: #00b0ff;
       color: white;
       animation: float 3s ease-in-out infinite reverse;
@@ -738,6 +751,7 @@
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header id="header">
     <img src="https://i.postimg.cc/mgcgX95D/Logo-Header.png" alt="Logo">
@@ -755,7 +769,7 @@
     </div>
   </header>
 
-  <!-- Drawer Menu com X -->
+  <!-- Drawer Menu -->
   <div class="drawer" id="drawer">
     <div class="drawer-close" id="drawer-close">X</div>
     <a href="#servicos">Serviços</a>
@@ -768,7 +782,8 @@
   <!-- Hero -->
   <section class="hero" id="inicio">
     <div class="hero-content">
-      <h1 class="animate">Serviços de Cartório e Conservatória do Brasil e Portugal rápidos e seguros </h1>
+      <h1 class="animate">Os serviços de Cartórios Brasileiros e Conservatórias Portuguesas em um lugar só.</h1>
+      <p class="slogan animate">Resolva suas pendências sem sair de casa.</p>
       <button class="animate" onclick="window.open('https://wa.me/351932573214?text=Ol%C3%A1','_blank')">Solicitar agora</button>
     </div>
   </section>
@@ -782,11 +797,11 @@
   <section class="services" id="servicos">
     <h2 class="animate">Nossos Serviços</h2>
     <div class="service-boxes">
-      <div class="service"><h3>Certidões</h3><p>Solicitação rápida, segura e totalmente online de certidões de nascimento, casamento e óbito em Portugal, também auxiliamos na obtenção de certidões atualizadas e na legalização para uso no exterior.</p></div>
+      <div class="service"><h3>Certidões</h3><p>Solicitação rápida, segura e totalmente online de certidões de nascimento, casamento e óbito em Portugal e no Brasil.</p></div>
       <div class="service"><h3>Procurações e substabelecimentos</h3><p>Realizamos procurações e substabelecimentos com assinatura eletrônica e autenticação garantida, atuamos com diferentes tipos de procurações, inclusive para representação legal, fiscal e imobiliária.</p></div>
-      <div class="service"><h3>Transferências de Veículos Online</h3><p>Facilitamos o processo de transferência de propriedade de veículos de forma digital e segura, cuidamos de toda a tramitação junto às entidades competentes, poupando tempo e burocracia.</p></div>
-      <div class="service"><h3>NIF e NISS</h3><p>Obtenha o seu Número de Identificação Fiscal (NIF) e de Segurança Social (NISS) com total praticidade, oferecemos acompanhamento personalizado e envio digital dos documentos em poucos dias.</p></div>
-      <div class="service"><h3>Autenticação de Documentos</h3><p>Serviço de autenticação e certificação de documentos para garantir validade jurídica em Portugal e no exterior, ideal para contratos, declarações, diplomas e outros documentos oficiais.</p></div>
+      <div class="service"><h3>Transferência de Veículo Online</h3><p>Facilitamos o processo de transferência de propriedade de veículos de forma digital e segura, cuidamos de toda a tramitação junto às entidades competentes, poupando tempo e burocracia.</p></div>
+      <div class="service"><h3>NIF e NISS</h3><p>Obtenha o seu Número de Identificação Fiscal (NIF) e de Segurança Social (NISS) com total praticidade, oferecemos acompanhamento personalizado e envio digital dos documentos.</p></div>
+      <div class="service"><h3>Autenticação de Documentos</h3><p>Serviço de autenticação e certificação de documentos para garantir validade jurídica em Portugal e no Brasil, ideal para: contratos, declarações, diplomas e outros documentos oficiais.</p></div>
       <div class="service"><h3>Autorização de Viagem</h3><p>Emitimos autorizações de viagem para menores e outros documentos relacionados, com reconhecimento de assinatura incluído, tudo de forma simples, segura e conforme as exigências legais portuguesas.</p></div>
     </div>
   </section>
@@ -796,7 +811,7 @@
     <h2 class="animate">Sobre Nós</h2>
     <div class="about-content">
       <img src="https://i.postimg.cc/MTwZpFKS/Sobre-Nos.png" alt="Equipe" class="animate">
-      <p class="animate">Olá, seja bem-vindo! Somos a <strong>Documentos Ágeis</strong> e estamos aqui para facilitar a obtenção de documentos e outros atos em Portugal sem que você precise sair de casa.</p>
+      <p class="animate">Olá, seja bem-vindo! Somos a <strong>Documentos Ágeis</strong> e estamos aqui para facilitar a obtenção de documentos e outros atos no Brasil e em Portugal sem que você precise sair de casa.</p>
     </div>
   </section>
 
@@ -805,7 +820,6 @@
     <div class="container">
       <h2 class="section-title animate">Como funciona:</h2>
       <div class="content-wrapper">
-        <!-- Passos -->
         <div class="steps animate">
           <div class="step">
             <div class="step-number">1</div>
@@ -843,14 +857,13 @@
             </div>
           </div>
         </div>
-        <!-- Imagem + Badges (só no desktop) -->
         <div class="image-wrapper animate">
-          <img src="https://i.postimg.cc/Wb4Qp4xN/Design-sem-nome-5.png" alt="Atendimento Documentos Ágeis">
+          <img src="https://i.postimg.cc/FzYmztZk/Design-sem-nome-8.png" alt="Atendimento Documentos Ágeis">
           <div class="floating-badge whatsapp-badge">
-            <img src="https://i.postimg.cc/bNVv9gL7/Fale-Conosco.png" alt="WhatsApp"> Atendimento via WhatsApp
+            <img src="https://i.postimg.cc/65MLwrvz/stopwatch-outline-moving-fast.png" alt="Rapidez"> Rapidez
           </div>
           <div class="floating-badge zero-badge">
-            <img src="https://i.postimg.cc/wxr1F15H/checked-checkbox-64-1.png" alt="Check"> Zero burocracia
+            <img src="https://i.postimg.cc/sDJG779f/fb73f86d-747c-46c7-acce-68b587ea447a.png" alt="Agilidade"> Agilidade
           </div>
         </div>
       </div>
@@ -862,7 +875,7 @@
     <h2 class="animate">Dúvidas Frequentes</h2>
     <div class="faq-container">
       <div class="faq-item">
-        <button class="faq-question">Como vou receber minha Procuração Express se moro fora do Brasil?</button>
+        <button class="faq-question">Como vou receber meu documento se moro fora do Brasil?</button>
         <div class="faq-answer"><p>O documento eletrônico é enviado em arquivo PDF, contendo QR Code e código de validação. A autenticidade pode ser verificada em <a href="https://www.docautentico.com.br/valida" target="_blank">www.docautentico.com.br/valida</a>.</p></div>
       </div>
       <div class="faq-item">
@@ -870,12 +883,8 @@
         <div class="faq-answer"><p>Sim, desde que a procuração pública contenha poderes específicos para venda e identificação do imóvel. A Documentos Ágeis orienta sobre todos os detalhes necessários.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-question">Em quanto tempo a Procuração fica pronta?</button>
-        <div class="faq-answer"><p>O tempo médio é de 48 horas após o envio da documentação completa. Trabalhamos conforme o provimento n.º 100/2020 do CNJ, garantindo segurança e validade jurídica.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-question">Preciso enviar a procuração por Correio para o Brasil?</button>
-        <div class="faq-answer"><p>Não. A procuração eletrônica tem validade legal e é enviada por e-mail em formato PDF com código de validação e QR Code.</p></div>
+        <button class="faq-question">Preciso enviar a carta convite por Correio para o Brasil?</button>
+        <div class="faq-answer"><p>Sim, a carta convite só tem validade legal se for apresentada em formato original.</p></div>
       </div>
     </div>
   </section>
@@ -905,14 +914,17 @@
     const hamburger = document.getElementById('hamburger');
     const drawer = document.getElementById('drawer');
     const drawerClose = document.getElementById('drawer-close');
+
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       drawer.classList.toggle('active');
     });
+
     drawerClose.addEventListener('click', () => {
       drawer.classList.remove('active');
       hamburger.classList.remove('active');
     });
+
     drawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         drawer.classList.remove('active');
@@ -939,22 +951,25 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
     document.querySelectorAll('.animate, .service, .about img, .about p, .faq-item, .step, .image-wrapper').forEach(el => {
       observer.observe(el);
     });
 
-    // FAQ com animação suave
+    // FAQ
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.parentElement;
         const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
+
         document.querySelectorAll('.faq-item').forEach(i => {
           if (i !== item) {
             i.classList.remove('active');
             i.querySelector('.faq-answer').style.height = '0';
           }
         });
+
         if (isActive) {
           item.classList.remove('active');
           answer.style.height = '0';
