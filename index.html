@@ -31,7 +31,6 @@
       opacity: 0;
       animation: fadeInUp 0.8s ease forwards;
     }
-
     /* --------- Cabeçalho --------- */
     header {
       display: flex;
@@ -83,7 +82,6 @@
     nav a:hover::after {
       width: 100%;
     }
-
     /* HAMBURGUER */
     .hamburger {
       display: none;
@@ -109,7 +107,6 @@
     .hamburger.active span:nth-child(3) {
       transform: rotate(-45deg) translate(7px, -6px);
     }
-
     /* DRAWER */
     .drawer {
       position: fixed;
@@ -177,13 +174,12 @@
       background: #00b0ff;
       transform: scale(1.1);
     }
-
     /* --------- Hero --------- */
     .hero {
       height: 100vh;
       min-height: 100vh;
       display: flex;
-      justify-content: flex-start; /* ← À ESQUERDA NO PC */
+      justify-content: flex-start;
       align-items: center;
       padding: 0 7%;
       background: url('https://i.postimg.cc/HkfsfLq8/Fundo-First.png') center 30%/cover no-repeat;
@@ -192,14 +188,14 @@
       overflow: hidden;
     }
     .hero::before {
-      display: none; /* Fundo claro */
+      display: none;
     }
     .hero-content {
       position: relative;
       z-index: 2;
       max-width: 900px;
       width: 100%;
-      text-align: left; /* ← texto à esquerda */
+      text-align: left;
       padding-left: 5%;
     }
     .hero h1 {
@@ -234,7 +230,7 @@
       box-shadow: 0 10px 25px rgba(0,176,255,0.6);
     }
 
-    /* MOBILE */
+    /* MOBILE - Ajustes apenas no celular */
     @media (max-width: 768px) {
       header {
         padding: 15px 5%;
@@ -245,50 +241,70 @@
       .hamburger {
         display: flex;
       }
+
       .hero {
-        background: url('https://i.postimg.cc/050wkXxG/Design-sem-nome.png') center 40%/cover no-repeat;
+        background: url('https://i.postimg.cc/050wkXxG/Design-sem-nome.png') center 60%/cover no-repeat;
         background-attachment: scroll;
         justify-content: center;
         align-items: flex-start;
-        padding: 80px 5% 5%;
+        padding: 90px 5% 5%;
         text-align: center;
       }
+
       .hero::before {
         display: none;
       }
+
       .hero-content {
-        margin-top: 20px;
+        margin-top: 10px;
         text-align: center;
         padding: 0;
         max-width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
+
+      /* Título menor no celular */
       .hero h1 {
-        font-size: 1.9rem;
-        margin: 0 auto 15px;
+        font-size: 1.7rem !important;
+        margin: 0 auto 10px;
         max-width: 100%;
+        line-height: 1.2;
       }
+
+      /* Slogan menor no celular */
       .hero .slogan {
-        font-size: 1.1rem;
-        margin: 10px auto 25px;
-        max-width: 90%;
+        font-size: 1rem !important;
+        margin: 8px auto 20px;
+        max-width: 85%;
       }
+
+      /* Botão menor e reposicionado para NÃO cobrir as caras */
       .hero button {
-        padding: 14px 30px;
-        font-size: 1rem;
+        padding: 12px 28px;
+        font-size: 0.95rem;
         margin: 0 auto;
         display: block;
+        z-index: 10;
+        position: relative;
       }
     }
+
     @media (max-width: 480px) {
       .hero {
-        background-position: center 60% !important;
-        padding-top: 100px;
+        background-position: center 65% !important;
+        padding-top: 110px;
       }
       .hero h1 {
-        font-size: 1.9rem;
+        font-size: 1.6rem !important;
       }
       .hero .slogan {
-        font-size: 1rem;
+        font-size: 0.95rem !important;
+      }
+      .hero button {
+        padding: 11px 24px;
+        font-size: 0.9rem;
       }
     }
 
@@ -560,7 +576,6 @@
       height: 24px;
       margin-right: 6px;
     }
-
     @media (max-width: 992px) {
       .content-wrapper {
         flex-direction: column;
@@ -752,7 +767,6 @@
   </style>
 </head>
 <body>
-
   <!-- Header -->
   <header id="header">
     <img src="https://i.postimg.cc/mgcgX95D/Logo-Header.png" alt="Logo">
@@ -840,7 +854,7 @@
             <div class="step-number">3</div>
             <div class="step-content">
               <strong>Passo 3</strong>
-              <p>Se o serviço que você solicitar depende da análise e/ou reconhecimento físico do documento, nosso serviço de courrier fará a recolha/devolução do documento no local que vc desejar.</p>
+              <p>Se o serviço que você solicitar depende da análise e/ou reconhecimento físico do documento, nosso serviço de courrier fará a recolha/devolução do documento no local que você desejar.</p>
             </div>
           </div>
           <div class="step">
@@ -915,29 +929,24 @@
     const hamburger = document.getElementById('hamburger');
     const drawer = document.getElementById('drawer');
     const drawerClose = document.getElementById('drawer-close');
-
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
       drawer.classList.toggle('active');
     });
-
     drawerClose.addEventListener('click', () => {
       drawer.classList.remove('active');
       hamburger.classList.remove('active');
     });
-
     drawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         drawer.classList.remove('active');
         hamburger.classList.remove('active');
       });
     });
-
     // Header scroll
     window.addEventListener('scroll', () => {
       document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
     });
-
     // Animações ao rolar
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -952,25 +961,21 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
     document.querySelectorAll('.animate, .service, .about img, .about p, .faq-item, .step, .image-wrapper').forEach(el => {
       observer.observe(el);
     });
-
     // FAQ
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.parentElement;
         const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
-
         document.querySelectorAll('.faq-item').forEach(i => {
           if (i !== item) {
             i.classList.remove('active');
             i.querySelector('.faq-answer').style.height = '0';
           }
         });
-
         if (isActive) {
           item.classList.remove('active');
           answer.style.height = '0';
